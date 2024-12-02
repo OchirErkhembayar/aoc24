@@ -9,21 +9,17 @@ defmodule Two do
     |> Enum.count(fn report ->
       valid(report) or
         0..(length(report) - 1)
-        |> Enum.any?(fn i ->
-          valid(List.delete_at(report, i))
-        end)
+        |> Enum.any?(&valid(List.delete_at(report, &1)))
     end)
   end
 
-  defp valid([fst, snd | _]) when fst == snd, do: false
+  defp valid([fst, snd | _] = report), do: valid(report, fst < snd)
 
-  defp valid([one, two| _] = report) do
-    report
-    |> Enum.chunk_every(2, 1, :discard)
-    |> Enum.all?(fn [fst, snd] ->
-      diff = abs(fst - snd)
-      diff >= 1 and diff <= 3 and if two > one, do: snd > fst, else: fst > snd
-    end)
-  end
+  defp valid([fst, snd | _], asc)
+       when abs(fst - snd) > 3 or fst == snd or (asc and fst > snd) or (not asc and fst < snd),
+       do: false
+
+  defp valid([_, _], _), do: true
+  defp valid([_, snd | rest], asc), do: valid([snd | rest], asc)
 end
 

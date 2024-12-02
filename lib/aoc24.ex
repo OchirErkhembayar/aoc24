@@ -1,17 +1,21 @@
 defmodule Aoc24 do
   def run_all(test \\ false) do
     1..25
-    |> Enum.map(&run(&1, test))
+    |> Enum.each(&run(&1, test))
   end
 
   def run(day, test \\ false) do
-    case day do
-      1 ->
-        "Day 1 | Part one: " <>
-          Integer.to_string(One.one(test)) <> " | Part two: " <> Integer.to_string(One.two(test))
+    mod =
+      case day do
+        1 -> One
+        2 -> Two
+        _ -> nil
+      end
 
-      _ ->
-        {:err, "Day " <> Integer.to_string(day) <> " not found"}
+    if mod != nil do
+      IO.puts(
+        "Day #{day} | Part one: #{Integer.to_string(mod.one(test))} | Part two: #{Integer.to_string(mod.two(test))}"
+      )
     end
   end
 
@@ -38,6 +42,7 @@ defmodule Aoc24 do
       read_file_lines(day, test)
       |> Enum.map(fn line -> line |> String.split(" ", trim: true) end)
 
+  @spec read_file_lines_ints(integer(), boolean()) :: list(list(integer()))
   def read_file_lines_ints(day, test \\ false),
     do:
       read_file_lines_words(day, test)
