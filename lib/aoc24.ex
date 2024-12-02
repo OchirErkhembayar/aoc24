@@ -37,4 +37,9 @@ defmodule Aoc24 do
     do:
       read_file_lines(day, test)
       |> Enum.map(fn line -> line |> String.split(" ", trim: true) end)
+
+  def read_file_lines_ints(day, test \\ false),
+    do:
+      read_file_lines_words(day, test)
+      |> Enum.map(fn ws -> ws |> Enum.map(&(&1 |> String.to_integer())) end)
 end
