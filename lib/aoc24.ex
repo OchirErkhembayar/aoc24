@@ -9,6 +9,7 @@ defmodule Aoc24 do
       case day do
         1 -> One
         2 -> Two
+        3 -> Three
         _ -> nil
       end
 

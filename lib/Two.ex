@@ -16,7 +16,8 @@ defmodule Two do
   defp valid([fst, snd | _] = report), do: valid(report, fst < snd)
 
   defp valid([fst, snd | _], asc)
-       when abs(fst - snd) > 3 or fst == snd or (asc and fst > snd) or (not asc and fst < snd),
+       when abs(fst - snd) > 3 or fst == snd or (asc and fst > snd) or
+              (not asc and fst < snd),
        do: false
 
   defp valid([_, _], _), do: true
