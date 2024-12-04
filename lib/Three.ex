@@ -5,6 +5,35 @@ defmodule Three do
     one(input, 0)
   end
 
+  def o2(test \\ false) do
+    input = Aoc24.read_file(3, test)
+
+    Regex.scan(~r/mul\((\d+),(\d+)\)/, input)
+    |> Enum.reduce(0, fn [_, l, r], sum -> sum + String.to_integer(l) * String.to_integer(r) end)
+  end
+
+  def t2(test \\ false) do
+    input = Aoc24.read_file(3, test)
+
+    # why no work man
+    Regex.scan(~r/mul\((\d+),(\d+)|don't\(\)|do\(\)/, input)
+    |> Enum.reduce({0, true}, fn match, {sum, enabled} ->
+      case match do
+        [_, l, r] when enabled ->
+          {sum + String.to_integer(l) * String.to_integer(r), enabled}
+
+        ["don't()"] ->
+          {sum, false}
+
+        ["do()"] ->
+          {sum, true}
+
+        _ ->
+          {sum, enabled}
+      end
+    end)
+  end
+
   defp one(["m", "u", "l", "(" | rest], sum) do
     with {lnum, ["," | rest]} <-
            rest |> Enum.split_while(fn c -> hd(to_charlist(c)) in ?0..?9 end),
