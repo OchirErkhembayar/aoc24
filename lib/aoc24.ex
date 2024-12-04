@@ -10,6 +10,7 @@ defmodule Aoc24 do
         1 -> One
         2 -> Two
         3 -> Three
+        4 -> Four
         _ -> nil
       end
 
@@ -43,9 +44,25 @@ defmodule Aoc24 do
       read_file_lines(day, test)
       |> Enum.map(fn line -> line |> String.split(" ", trim: true) end)
 
+  @spec read_lines_chars(integer(), boolean()) :: list(list(String.t()))
+  def read_lines_chars(day, test \\ false),
+    do: read_file_lines(day, test) |> Enum.map(&String.split(&1, "", trim: true))
+
   @spec read_file_lines_ints(integer(), boolean()) :: list(list(integer()))
   def read_file_lines_ints(day, test \\ false),
     do:
       read_file_lines_words(day, test)
       |> Enum.map(fn ws -> ws |> Enum.map(&(&1 |> String.to_integer())) end)
+
+  @spec char_map(integer(), boolean()) :: map()
+  def char_map(day, test \\ false),
+    do:
+      read_lines_chars(day, test)
+      |> Enum.with_index()
+      |> Enum.reduce(%{}, fn {chars, row}, map ->
+        Enum.with_index(chars)
+        |> Enum.reduce(map, fn {c, col}, map ->
+          Map.put(map, {row, col}, c)
+        end)
+      end)
 end
