@@ -15,6 +15,7 @@ defmodule Aoc24 do
         # Six runs way too slow right now
         6 -> nil
         7 -> Seven
+        8 -> Eight
         _ -> nil
       end
 
