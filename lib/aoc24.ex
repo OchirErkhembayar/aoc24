@@ -11,6 +11,10 @@ defmodule Aoc24 do
         2 -> Two
         3 -> Three
         4 -> Four
+        5 -> Five
+        # Six runs way too slow right now
+        6 -> nil
+        7 -> Seven
         _ -> nil
       end
 
