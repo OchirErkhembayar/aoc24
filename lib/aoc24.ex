@@ -16,6 +16,7 @@ defmodule Aoc24 do
         6 -> nil
         7 -> Seven
         8 -> Eight
+        10 -> Ten
         _ -> nil
       end
 
