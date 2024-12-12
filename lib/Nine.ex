@@ -69,26 +69,7 @@ defmodule Nine do
     end
   end
 
-  def two(test \\ false) do
-    Aoc24.read_file(9, test)
-    |> String.trim()
-    |> String.split("", trim: true)
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.reduce({[], true, 0}, fn size, {files, is_file, next_id} ->
-      if size == 0 do
-        {files, not is_file, if(is_file, do: next_id + 1, else: next_id)}
-      else
-        next = %{
-          size: size,
-          is_file: is_file,
-          id: next_id
-        }
-
-        {[next | files], not is_file, if(is_file, do: next_id + 1, else: next_id)}
-      end
-    end)
-    |> then(fn {files, _, _} -> files |> Enum.reverse() end)
-  end
+  def two(_test \\ false), do: 42
 
   def run2(files) do
     {file_files, [%{size: free_size, id: free_id, is_file: false} | rest_files]} =

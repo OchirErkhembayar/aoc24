@@ -16,7 +16,11 @@ defmodule Aoc24 do
         6 -> nil
         7 -> Seven
         8 -> Eight
+        # Nine pt. 2 is done in Rust in another project
+        9 -> Nine
         10 -> Ten
+        11 -> Eleven
+        12 -> Twelve
         _ -> nil
       end
 
