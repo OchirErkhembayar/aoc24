@@ -22,6 +22,7 @@ defmodule Aoc24 do
         11 -> Eleven
         12 -> Twelve
         13 -> Thirteen
+        14 -> Fourteen
         _ -> nil
       end
 
