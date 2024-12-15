@@ -5,6 +5,8 @@ defmodule Fourteen do
   @middle_x (@width - 1) / 2
   @middle_y (@height - 1) / 2
 
+  @print false
+
   def one(test \\ false),
     do:
       run(test, 100)
@@ -23,24 +25,26 @@ defmodule Fourteen do
     do:
       run(test, 6398)
       |> then(fn map ->
-        y_coords = 0..(@width - 1) |> Enum.map(fn x -> rem(x, 10) end) |> Enum.join(" ")
-        IO.puts("  " <> y_coords)
+        if @print do
+          y_coords = 0..(@width - 1) |> Enum.map(fn x -> rem(x, 10) end) |> Enum.join(" ")
+          IO.puts("  " <> y_coords)
 
-        0..(@height - 1)
-        |> Enum.each(fn y ->
-          row =
-            0..@width
-            |> Enum.map(fn x ->
-              if Map.has_key?(map, {x, y}) do
-                "^"
-              else
-                " "
-              end
-            end)
-            |> Enum.join(" ")
+          0..(@height - 1)
+          |> Enum.each(fn y ->
+            row =
+              0..@width
+              |> Enum.map(fn x ->
+                if Map.has_key?(map, {x, y}) do
+                  "^"
+                else
+                  " "
+                end
+              end)
+              |> Enum.join(" ")
 
-          IO.puts(Integer.to_string(rem(y, 10)) <> " " <> row)
-        end)
+            IO.puts(Integer.to_string(rem(y, 10)) <> " " <> row)
+          end)
+        end
 
         42
       end)
