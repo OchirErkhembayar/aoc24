@@ -199,7 +199,7 @@ defmodule Fifteen do
 
     map =
       coords
-      |> move2(moves, max_x, max_y)
+      |> move2(moves)
 
     if @print do
       0..max_y
@@ -220,9 +220,9 @@ defmodule Fifteen do
     end)
   end
 
-  def move2(map, [], _, _), do: map
+  def move2(map, []), do: map
 
-  def move2(map, [move | moves], max_x, max_y) do
+  def move2(map, [move | moves]) do
     {{x, y}, _} =
       map
       |> Enum.find(fn {_, c} -> c == "@" end)
@@ -233,7 +233,7 @@ defmodule Fifteen do
       do: do_move(map, {x, y}, move),
       else: map
     )
-    |> move2(moves, max_x, max_y)
+    |> move2(moves)
   end
 
   def do_move(map, {x, y}, dir) do

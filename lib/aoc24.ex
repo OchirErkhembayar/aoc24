@@ -24,12 +24,20 @@ defmodule Aoc24 do
         13 -> Thirteen
         14 -> Fourteen
         15 -> Fifteen
+        16 -> Sixteen
         _ -> nil
       end
 
     if mod != nil do
+      {one, two} =
+        if mod == Sixteen do
+          mod.one(test)
+        else
+          {mod.one(test), mod.two(test)}
+        end
+
       IO.puts(
-        "Day #{day} | Part one: #{Integer.to_string(mod.one(test))} | Part two: #{Integer.to_string(mod.two(test))}"
+        "Day #{day} | Part one: #{Integer.to_string(one)} | Part two: #{Integer.to_string(two)}"
       )
     end
   end
@@ -75,7 +83,7 @@ defmodule Aoc24 do
       |> Enum.reduce(%{}, fn {chars, row}, map ->
         Enum.with_index(chars)
         |> Enum.reduce(map, fn {c, col}, map ->
-          Map.put(map, {row, col}, c)
+          Map.put(map, {col, row}, c)
         end)
       end)
 end
